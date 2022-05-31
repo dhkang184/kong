@@ -2,6 +2,8 @@ from tkinter import Button, Tk
 import tkinter as tk
 from collections import defaultdict
 
+# 구글 번역 : https://blockdmask.tistory.com/540
+
 # class MainWin(Tk):
 #     def __init__(self, parent):
 #         Tk.__init__(self, parent)
@@ -71,7 +73,7 @@ def new_click(i):
 
     print(str(strs[i].get())+ "clicked NEW")
 
-app.mainloop()
+#app.mainloop()
 
 #tk-inter 가이드
 #https://towardsdatascience.com/empowering-docker-using-tkinter-gui-bf076d9e4974
@@ -80,3 +82,23 @@ app.mainloop()
 
 
 #https://hanseokhyeon.tistory.com/entry/Mac-Docker-%EC%97%90%EC%84%9C-GUI-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-python-matplotlib-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+
+
+def en_dict():
+    import re
+    import pickle as pkl
+    f_path = '202106.txt'
+    f_open = open(f_path, encoding='utf8')
+    lines = f_open.readlines()
+    token_list = []
+    for l in lines:
+        l_split = l.strip().split(' ')
+        for s in l_split:
+            word = re.sub('[^a-zA-Z]','',s).strip()
+            if word != '' and len(word)>1:
+                token_list.append(word.lower())
+    token_list = list(set(token_list))
+    with open('en_words.pkl', 'wb') as f:
+        pkl.dump(token_list, f)
+
+en_dict()
